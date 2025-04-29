@@ -1,6 +1,6 @@
 document.getElementById("generateBtn").addEventListener("click", async () => {
   try {
-    const res = await fetch("http://localhost:8080/email", {
+    const res = await fetch("https://disposify-api.onrender.com/email", {
       method: "POST"
     });
     const data = await res.json();
