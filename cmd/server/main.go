@@ -1,15 +1,17 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"temp-email-service/internal/handler"
+	"temp-email-service/internal/service"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
-	"temp-email-service/internal/handler"
-	"temp-email-service/internal/service"
 )
 
 func main() {
@@ -45,8 +47,13 @@ func main() {
 		}
 	}()
 
-	log.Println("Server started at :8080")
-	if err := http.ListenAndServe(":8080", r); err != nil {
-		log.Fatal(err)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	log.Println("Server started at :" + port)
+	if err := http.ListenAndServe(":"+port, r); err != nil {
+
+		fmt.Println("Error starting server:", err)
 	}
 }
